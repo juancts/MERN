@@ -1,9 +1,5 @@
 import mongoose from "mongoose";
-import dotenv from 'dotenv';
-//to commitsg
-
-dotenv.config();
-const { MONGODB_URI } = process.env;
+import { MONGODB_URI } from "./config.js";
 
 export const connectDb = async () => {
   try {
