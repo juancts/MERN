@@ -1,21 +1,34 @@
+import { usePosts } from "../context/PostContext";
+import {VscEmptyWindow} from 'react-icons/vsc'
+import {Link} from 'react-router-dom'
 
+export const Home = () => {
+  const { posts } = usePosts();
 
-import React from 'react'
-import { useContext } from 'react'
-import { context } from '../context/PostContext'
-
-
-
-
-
-export const Home = () =>{
-  const myContext = useContext(context)  
   
-  return (
-    <div>Homes
-    {console.log(myContext)}
-      <button >Add</button>
-    </div>
-  )
-}
 
+  return (
+    <div >
+      <Link to="/new">Create new Post</Link>
+      <Link to="/new2">Create new Post</Link>
+      {posts.length ? posts.map((post) =>
+         post.image ? (
+          <div className="flex flex-col justify-center" key={post._id}>
+            <div>
+              <img src={post.image.url} />
+            </div>{" "}
+            {post.title}
+          </div>
+        ) : (
+          <div key={post._id}>{post.title}</div>
+        )
+      ) : <div className="flex flex-col justify-center">
+      
+      <VscEmptyWindow className='w-48 h-48 text-black'/>
+      <h1>NO POSTS YET</h1>
+      </div>
+      }
+      
+    </div>
+  );
+};
