@@ -6,7 +6,7 @@ import fs from "fs-extra";
 const GET_allposts = async (req, res) => {
   try {
     const post = await Post.find();
-    console.log("ok");
+    console.log("OK GET ALL POSTS");
    return res.json(post);
   } catch (error) {
     console.error(error.message);
@@ -43,7 +43,7 @@ const POST_allposts = async (req, res) => {
 const UPDATE_post = async (req, res) => {
   try {
     const postUpdated = await Post.findByIdAndUpdate(req.params.id, req.body);
-
+    console.log("OK POST UPDATED");
     return res.send(postUpdated);
   } catch (error) {
     const errorMessage = () => res.status(500).json({ message: error.message });
