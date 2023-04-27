@@ -3,6 +3,7 @@ import { Home, NotFound, PostForm } from "./views";
 import {PostProvider} from "./context/PostContext.jsx";
 import "./index.css";
 import { PostPrueba } from "./views/FormPrueba";
+import {Toaster} from "react-hot-toast";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="/new2" element={<PostPrueba />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <Toaster />
         </PostProvider>
       </div>
     </div>
