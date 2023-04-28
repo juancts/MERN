@@ -23,14 +23,17 @@ export const PostProvider = ({ children }) => {
   const getPosts = async () => {
     const res = await getPostsRequests();
     setPost(res.data);
-    
   };
 
   const createPost = async (post) => {
-    console.log({ postContext: post });
-    const res = await createPostRequests(post).then((res) => res);
-    console.log("RES CREATE POST:", res);
-    setPost([...posts, res.data]);
+    try {
+      console.log({ postContext: post });
+      const res = await createPostRequests(post).then((res) => res);
+      console.log("RES CREATE POST:", res);
+      setPost([...posts, res.data]);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const deletePost = async (_id) => {
@@ -45,8 +48,10 @@ export const PostProvider = ({ children }) => {
 
   const updatePost = async (_id, newfields) => {
     const res = await updatePostRequest(_id, newfields);
-    const postupdated = posts.map((post)=>(post._id === _id ? newfields : post))
-    setPost(postupdated)
+    const postupdated = posts.map((post) =>
+      post._id === _id ? newfields : post
+    );
+    setPost(postupdated);
   };
 
   useEffect(() => {

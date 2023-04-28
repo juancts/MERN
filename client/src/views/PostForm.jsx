@@ -3,24 +3,27 @@ import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { usePosts } from "../context/PostContext";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import {AiOutlineLoading3Quarters} from 'react-icons/ai'
 
 export const PostForm = () => {
   const navigate = useNavigate();
   const params = useParams();
- 
+
   const [post, setPost] = useState({
     title: "",
     description: "",
+    image: null
   });
 
   const { createPost, getPost, updatePost } = usePosts();
 
   useEffect(() => {
-    (async()=>{if (params.id) {
-      const res = await getPost(params.id);
-       setPost(res);
-      
-    }})();
+    (async () => {
+      if (params.id) {
+        const res = await getPost(params.id);
+        setPost(res);
+      }
+    })();
   }, [params.id]);
 
   return (
@@ -33,25 +36,26 @@ export const PostForm = () => {
           </Link>
         </header>
         <Formik
-          initialValues={ post }
+          initialValues={post}
           validationSchema={Yup.object({
             title: Yup.string().required("Title is required"),
             description: Yup.string().required("Description is required"),
+            
           })}
           onSubmit={async (values, actions) => {
-            console.log("VALUES:", values)
-            if(params.id){ 
-              await updatePost(params.id, values)
-              navigate("/")
+            
+            if (params.id) {
+              await updatePost(params.id, values);
             } else {
-              await createPost(values)
-              navigate("/")
+              await createPost(values);
             }
+            actions.setSubmitting(false);
+            navigate("/");
           }}
           enableReinitialize
         >
-          {(props) => (
-            <Form onSubmit={props.handleSubmit}>
+          {({handleSubmit, setFieldValue, isSubmitting}) => (
+            <Form onSubmit={handleSubmit}>
               <label
                 htmlFor="title"
                 className="text-sm block font-bold text-gray-400"
@@ -86,13 +90,24 @@ export const PostForm = () => {
                 component="p"
                 className="text-red-400 text-sm"
               />
+
+              <label
+                htmlFor="title"
+                className="text-sm block font-bold text-gray-400"
+              >
+                Image
+              </label>
+              <input type="file" name="image" className="px-3 py-2 focus:outline-none rounded bg-gray-600 text-white w-full"
+              onChange={(e)=> setFieldValue("image", e.target.files[0])}
+              />
               <div className="flex justify-end">
                 <button
                   type="submit"
                   className="bg-indigo-600 hover:bg-indigo-500 px-4 py-2 rounded mt-2 to-white focus:outline-none disabled:bg-indigo-400"
-                  
+                  disabled={isSubmitting}
                 >
-                  Save
+                  {isSubmitting ? 
+                    (<AiOutlineLoading3Quarters className="animate-spin h-5 w-5"/> ) : "Save"}
                 </button>
               </div>
             </Form>

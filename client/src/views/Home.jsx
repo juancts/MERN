@@ -8,7 +8,7 @@ export const Home = () => {
 
   return (
     <div>
-      <Link to="/new">Create new Post</Link>
+      <Link to="/new" className="text-white">Create new Post</Link>
       <div className="grid grid-cols-3 gap-2" >
 
       {posts.length ? (

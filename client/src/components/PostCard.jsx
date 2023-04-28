@@ -1,4 +1,3 @@
-import react from "react";
 import toast from "react-hot-toast";
 import { usePosts } from "../context/PostContext";
 import { useNavigate } from "react-router-dom";
@@ -48,14 +47,15 @@ export const PostCard = ({ post }) => {
               handleDelete(post._id)
             }
           }
-            className="bg-red-600 text-sm px-2 py-1 rounded-sm"
+            className="bg-red-600 hover:bg-red-400 text-sm px-2 py-1 rounded-sm"
           >
             Delete
           </button>
         </div>
         <p>{post.description}</p>
-        <img src={post.image?.url} />
+     
       </div>
+      {post.image && (<img src={post.image.url} alt={post.title} className="w-full h-96 object-cover"/>)}
     </div>
   );
 };
