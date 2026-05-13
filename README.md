@@ -18,7 +18,7 @@ Permite crear publicaciones (posts), guardarlas en una base de datos MongoDB y s
 
 ## 🧱 Estructura del proyecto
 
-
+```bash
 MERN/
 │
 ├── client/ # Frontend React
@@ -37,7 +37,7 @@ MERN/
 │ └── app.js
 │
 └── README.md
-
+```
 
 ---
 
