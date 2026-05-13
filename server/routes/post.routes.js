@@ -9,6 +9,7 @@ import {
 
 const router = Router();
 
+router.get("/", (req, res)=>res.send("API is working fine!"));
 router.get("/posts", GET_allposts);
 router.post("/posts", POST_allposts);
 router.delete("/posts/:id", DELETE_allpost);
